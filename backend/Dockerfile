@@ -3,7 +3,7 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Install system dependencies for Pillow/TIF support
+# Install system dependencies for Pillow/TIF support and healthcheck
 RUN apt-get update && apt-get install -y \
     libtiff5-dev \
     libjpeg-dev \
@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     libwebp-dev \
     libxml2-dev \
     libxslt1-dev \
+    curl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

@@ -4,6 +4,13 @@ services:
   backend:
     build:
       context: ./backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/config"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     volumes:
       - ./backend:/app
     environment:
@@ -24,6 +31,7 @@ services:
   frontend:
     build:
       context: ./frontend
+    restart: unless-stopped
     volumes:
       - ./frontend:/app
       - /app/node_modules
